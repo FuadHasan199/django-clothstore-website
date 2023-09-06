@@ -27,6 +27,8 @@
                 {% if request.user.is_authenticated %}
                 <div class="d-flex" >
                   <a href="{% url 'profile' user.id %}" class="text-decoration-none btn btn">profile</a>
+                  <a href="{% url 'wishlist'  %}" class="text-decoration-none btn btn">Wishlist</a>
+
                   <a href="{% url 'logout' %}" class="text-decoration-none mx-3 btn ">logout</a>
                 </div>
                 {% else %}

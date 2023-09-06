@@ -45,7 +45,7 @@
                   <h5 class="card-title">{{item.product_name}}</h5>
                   <p><b>price: </b>{{item.price}}</p>
                   <a href="{% url 'details' item.id %}" class="fs-6 fw-medium text-body-secondary mb-4 text-decoration-none">Show details</a>
-                  <button class="btn btn-light block">Add to cart</button>
+                  <a href="{% url 'add_to_wishlist' item.id %}" class="btn btn-light block">Add to wishlist</a>
                 </div>
               </div>
             </div>

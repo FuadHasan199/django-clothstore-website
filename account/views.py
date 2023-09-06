@@ -3,8 +3,9 @@ from django.shortcuts import redirect,render,get_object_or_404
 from django.contrib.auth import login,logout,authenticate
 from django.contrib.auth.forms import AuthenticationForm,UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
 from django.contrib.auth.models import User
+from .models import Wishlist
+from product.models import Product
 
 # Create your views here.
 def usersignup(request):
@@ -63,3 +64,34 @@ def profile(request, id):
 def userLogout(request):
     logout(request)
     return redirect('home')
+
+
+
+
+def wishlist_view(request):
+    if not request.user.is_authenticated:
+        return redirect('login') 
+
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+
+    return render(request, 'wishlist.html', {'wishlist': wishlist})
+
+def add_to_wishlist(request, product_id):
+    if not request.user.is_authenticated:
+        return redirect('login') 
+
+    product = get_object_or_404(Product, pk=product_id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist.items.add(product)
+
+    return redirect('wishlist')
+
+def remove_from_wishlist(request, product_id):
+    if not request.user.is_authenticated:
+        return redirect('login')  
+
+    product = get_object_or_404(Product, pk=product_id)
+    wishlist, created = Wishlist.objects.get_or_create(user=request.user)
+    wishlist.items.remove(product)
+
+    return redirect('wishlist')

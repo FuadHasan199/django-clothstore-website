@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block body %}
+<div id="carouselExample" class="carousel slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fGNsb3RoaW5nJTIwc3RvcmV8ZW58MHx8MHx8fDA%3D&w=1000&q=80" class="d-block w-100" style="border-radius:10px; max-height:  500px;" alt="..." >
+    </div>
+    <div class="carousel-item">
+      <img src="https://media.istockphoto.com/id/1023612090/photo/interior-of-clothing-store.jpg?s=612x612&w=0&k=20&c=84NciWwU43Zyzmxph6bCVTG9WRO9rxDGUYtYnUqpTt8=" class="d-block w-100" style=" border-radius:10px; max-height: 500px;" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="https://media.istockphoto.com/id/1347626110/photo/shopping-clothing-store-interior-modern-fashionable-shop-clothes-for-every-taste-stylish.webp?b=1&s=170667a&w=0&k=20&c=6944EQDeDVbRl29pj7wWzInbY-l0jiIIdvQe14WGB2c=" class="d-block w-100" style="border-radius:10px; max-height: 500px;"alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+  <div class="d-flex align-items-center justify-content-between">
+    <h1 class="fs-1 fw-bold my-5">Our products</h1>
+    
+  </div>
+  <div class="d-flex flex-row">
+    <div class="p-2 -100">
+        <ul class="list-group ">
+            <li class="list-group-item"><b>All categories</b></li>
+            {% for i in category %}
+            <li class="list-group-item " type="button"><a href="{% url 'category_products' i.slug %}" class="text-decoration-none text-black ">{{i.category_name}}</a></li>
+            {% endfor %}
+          </ul>
+    </div>
+    
+    <div class="p-2 flex-fill">
+        <div class="row row-cols-1 row-cols-md-4 g-3">
+            {% for item in cloth %}
+            <div class="col">
+              <div class="card h-100 shadow w-100">
+                <img src="{{item.image.url}}" class="card-img-top h-75 pt-4" alt="...">
+                <div class="card-body text-center">
+                  <h5 class="card-title">{{item.product_name}}</h5>
+                  <p><b>price: </b>{{item.price}}</p>
+                  <a href="{% url 'details' item.id %}" class="fs-6 fw-medium text-body-secondary mb-4 text-decoration-none">Show details</a>
+                  <button class="btn btn-light block">Add to cart</button>
+                </div>
+              </div>
+            </div>
+            
+            {% endfor %}
+          </div>
+    </div>
+  </div>
+{% endblock body %}
